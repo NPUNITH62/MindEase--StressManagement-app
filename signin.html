@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Free Students - Sign in</title>
+    <style>        
+        body {
+            background-image: url('b4.avif');
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: "Poppins", sans-serif;
+            text-align: center;
+        }
+        .c1 {
+            font-weight: 100;
+        }
+        form {
+            margin-top: 50px;
+        }
+        table {
+            margin: 0 auto;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            width: 200px;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #2876b5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4682b4;
+        }
+        .hh1 {
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1 class="hh1">STRESS MANAGEMENT</h1>
+        <h3>Let's join our hands for a stress-free environment</h3>
+        <hr>
+        <h1 class="hh1">SIGN IN</h1>
+        <form onsubmit="return login()">
+            <table>
+                <tr>
+                    <td>Username:</td>
+                    <td><input type="text" id="username" placeholder="Enter Username"></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" id="password" placeholder="Enter Password"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button type="submit">Login</button></td>
+                </tr>
+            </table>
+        </form>
+        <p>Don't have an account? <a class="c1" href="register.html">Register</a></p>
+    </center>
+
+    <script>
+        function login() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Check if username and password are not empty
+            if (username.trim() === "" || password.trim() === "") {
+                alert("Please enter both username and password.");
+                return false; // Prevents form submission
+            } else {
+                // Redirect to homepage.html if both fields are filled
+                window.location.href = "home.html";
+                return false; // Prevents form submission
+            }
+        }
+    </script>
+</body>
+</html>

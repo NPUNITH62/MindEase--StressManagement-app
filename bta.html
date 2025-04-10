@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stress Level Calculator</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #141e30, #2876b5);
+      color: #000;
+      padding-top: 100px;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #1b1b1b;
+      z-index: 1000;
+      padding: 10px 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu {
+      max-width: 1250px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .menu .logo a {
+      text-decoration: none;
+      color: #4682b4;
+      font-size: 35px;
+      font-weight: 600;
+    }
+
+    .menu ul {
+      display: inline-flex;
+      list-style: none;
+    }
+
+    .menu ul li {
+      margin-left: 7px;
+    }
+
+    .menu ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-bottom: 2px solid transparent;
+      transition: 0.3s ease;
+    }
+
+    .menu ul li a:hover {
+      border-bottom: 2px solid #4682b4;
+    }
+
+    .b1 {
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      background: #4682b4;
+      color: black;
+      text-decoration: none;
+    }
+
+    /* FORM CONTAINER */
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      color: #000;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+      color: #243b55;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+      accent-color: #2e75b6;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 30px;
+      font-size: 1rem;
+      background-color: #2e75b6;
+      border: none;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #1b4f7b;
+    }
+
+    #result {
+      margin-top: 30px;
+      padding: 25px;
+      background-color: #e3f2fd;
+      border-radius: 15px;
+      color: #000;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+
+    .result-header {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .low { background-color: #4caf50; }
+    .moderate { background-color: #ff9800; }
+    .severe { background-color: #f44336; }
+
+    .progress-container {
+      margin: 15px 0;
+    }
+
+    .progress-label {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .progress-bar {
+      height: 20px;
+      background-color: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background-color: #2e75b6;
+      text-align: right;
+      padding-right: 10px;
+      line-height: 20px;
+      color: white;
+      font-weight: bold;
+      transition: width 1s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="menu">
+      <div class="logo">
+        <a href="#">MindEase</a>
+      </div>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#feedback">Feedback</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- FORM SECTION -->
+  <div class="container">
+    <h1>Stress Level Calculator</h1>
+    <form id="quizForm">
+      <div id="questions"></div>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      "Feeling nervous?", "Unable to relax?", "Fear of worst happening?", "Dizzy or lightheaded?",
+      "Fear of losing control?", "Difficulty breathing?", "Fear of dying?", "Scared for no reason?",
+      "Face flushing?", "Hands trembling?", "Heart pounding?", "Unable to sleep?",
+      "Fear of being alone?", "Sudden panic?", "Cold or sweaty hands?", "Fear of people?",
+      "Tight chest?", "Feeling choked?", "Shaky legs?", "Worried too often?"
+    ];
+
+    const questionContainer = document.getElementById("questions");
+
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `
+        <p><strong>Q${i + 1}. ${q}</strong></p>
+        <label><input type="radio" name="q${i}" value="0" required> Not at all</label>
+        <label><input type="radio" name="q${i}" value="1"> Mildly</label>
+        <label><input type="radio" name="q${i}" value="2"> Moderately</label>
+        <label><input type="radio" name="q${i}" value="3"> Severely</label>
+      `;
+      questionContainer.appendChild(div);
+    });
+
+    document.getElementById("quizForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let score = 0;
+      for (let i = 0; i < questions.length; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        score += parseInt(selected.value);
+      }
+
+      let level = "", depression = "";
+      if (score <= 15) {
+        level = "Low Anxiety"; depression = "None";
+      } else if (score <= 30) {
+        level = "Moderate Anxiety"; depression = "Mild";
+      } else {
+        level = "Severe Anxiety"; depression = "Likely";
+      }
+
+      let stressPercent = Math.round((score / 60) * 100);
+
+      document.getElementById("result").innerHTML = `
+        <div class="result-header">Your Results</div>
+        Total Score: <strong>${score}</strong> / 60<br>
+        Anxiety Level: <span class="badge ${level.toLowerCase().split(' ')[0]}">${level}</span><br>
+        Depression Indicator: <strong>${depression}</strong><br>
+        <div class="progress-container">
+          <div class="progress-label">Stress Level:</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: ${stressPercent}%;">${stressPercent}%</div>
+          </div>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
